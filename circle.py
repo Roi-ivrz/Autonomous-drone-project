@@ -65,7 +65,7 @@ def condition_yaw(heading, relative=False):
         0, #confirmation
         heading,    # param 1, yaw in degrees
         90,          # param 2, yaw speed deg/s
-        -1,          # param 3, direction -1 ccw, 1 cw
+        1,          # param 3, direction -1 ccw, 1 cw
         is_relative, # param 4, relative offset 1, absolute angle 0
         0, 0, 0)    # param 5 ~ 7 not used
     # send command to vehicle
@@ -91,18 +91,19 @@ def get_location_offset_meters(original_location, dNorth, dEast, alt):
     newlon = original_location.lon + (dLon * 180/math.pi)
     return LocationGlobal(newlat, newlon,original_location.alt+alt)
 #-----------------------------------
-def circle(C_alt,radius,interval):
+def circle(C_alt,radius,interval,waitTime):
     center = vehicle.location.global_relative_frame
     print(center)
     condition_yaw(0, relative = False)
     print("Yaw 0 absolute (North)")
-    print("going to WP1")
     time.sleep(2)
-
-    for i in range(1,interval + 1):
-        print(i)
+    turnAngle = 90 - (90 - (180 - (720 / interval)) / 2)
+    print "Turn angle: ", turnAngle
+    print ""
+    for i in range(0,interval + 1):
+        print "Approaching angle ", i, "/", interval
         angle = i*(90-(180 - (720 / interval)) / 2)
-        """
+
         if angle <= 360 and angle > 270:
             Xsign = 1
             Ysign = -1
@@ -118,28 +119,43 @@ def circle(C_alt,radius,interval):
         else:
             Xsign = -1
             Ysign = -1
-        """
-        Y = radius*math.cos(90 - angle)
-        X = radius*math.sin(90 - angle)
-        print "x: ", X, "y: ", Y, "X sign: ", Xsign, "Y sign: ", Ysign
+
+        X = Xsign*radius*abs(math.cos(math.radians(turnAngle)))
+        Y = Ysign*radius*abs(math.sin(math.radians(turnAngle)))
+
+        if angle == 90:
+            X = -radius
+            Y = 0
+        elif angle == 180:
+            X = 0
+            Y = radius
+        elif angle == 270:
+            X = radius
+            Y = 0
+        elif angle == 0:
+            X = 0
+            Y = -radius
+
+        print "relative X: ", X, "relative Y: ", Y, ";   X sign: ", Xsign, "Y sign: ", Ysign
 
         WP = get_location_offset_meters(center,Y,X,0)
         vehicle.simple_goto(WP)
-        time.sleep(10)
-        print "Yaw: ", angle
+        time.sleep(15)
 
-    condition_yaw(angle, relative = False)
-    print(angle)
-    time.sleep(5)
+        print "Global Yaw Angle: ", angle
+        print "--------------------------------------"
+        condition_yaw(angle, relative = False)
+        time.sleep(waitTime)
 #------------------------------------------------------------------------------
 # MISSIONS
 arm_and_takeoff(5)
 #SPEED
-vehicle.airspeed = 17.5
+vehicle.airspeed = 15
 
 #CIRCLE
 condition_yaw(0, relative = False)
-circle(5,15,6)
+#circle(cirlcling altitude, circling radius, interval, wait time between interval)
+circle(5,40,6,10)
 
 #RETURN
 print('RTL')
