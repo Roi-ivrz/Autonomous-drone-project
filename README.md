@@ -1,8 +1,3 @@
 # Autonomous-drone-project
-yes
-
-progress
-| Left-aligned | Center-aligned | Right-aligned |
-| :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+YouTube: https://www.youtube.com/playlist?list=PLZWsL_o1V1Nzv6PjuIoScH1YG-hIqkAKs
+progress documents: https://docs.google.com/spreadsheets/d/1gNA6W1dxG2Ifqbio1nArw38zcDX_D9ySUJf5U3JFx9E/edit#gid=0
