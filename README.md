@@ -22,11 +22,15 @@ This autonomous drone is a semester long school project. I went through differen
   - Mission Planner (as ground station) 
   
 ## Hardware
-- autonomous
+- Autonomous
   - Pixhawk Mini (flight controller)
   - benewake tfmini (lidar for collision avoidance)
+  - HC-sr04 ultrasonic sensor
   - 915MHz telemetry module pair (communication with the ground station)
-- quadcopter
-  - speedix ES 30A ESC 
+- Quadcopter
+  - RDQ BADASS 2207 2450Kv motor
+  - speedix ES 30A ESC
   - 4S 1300 MAH CHNL lipo battery
   - TBS Source One v0.1 + v0.2 frame
+  - XM+ Frsky receiver
+  - Taranis QX7 transmitter
