@@ -25,7 +25,7 @@ This autonomous drone is a semester long school project. I went through differen
 - Autonomous
   - Pixhawk Mini (flight controller)
   - benewake tfmini (lidar for collision avoidance)
-  - HC-sr04 ultrasonic sensor
+  - HC-sr04 ultrasonic sensor (altitude maintenance)
   - 915MHz telemetry module pair (communication with the ground station)
 - Quadcopter
   - RDQ BADASS 2207 2450Kv motor
